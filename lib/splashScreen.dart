@@ -16,7 +16,7 @@ class _splashScreenState extends State<splashScreen> {
   void initState() {
     super.initState();
     // Delay for 3 minutes (180,000 milliseconds) and then navigate to the home page.
-    Future.delayed(Duration(minutes: 3), () {
+    Future.delayed(Duration(milliseconds:180000), () {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (BuildContext context) => Introduction(),

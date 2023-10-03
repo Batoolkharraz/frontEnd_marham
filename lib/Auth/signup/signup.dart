@@ -34,6 +34,7 @@ class _SignupState extends State<Signup> {
             child: SingleChildScrollView(
               child: Container(
                 margin: EdgeInsets.fromLTRB(15, 240, 15, 0),
+                padding: EdgeInsets.fromLTRB(10,0, 10,0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
