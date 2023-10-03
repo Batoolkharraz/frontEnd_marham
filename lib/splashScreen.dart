@@ -13,23 +13,36 @@ class splashScreen extends StatefulWidget {
 
 class _splashScreenState extends State<splashScreen> {
   @override
+  void initState() {
+    super.initState();
+    // Delay for 3 minutes (180,000 milliseconds) and then navigate to the home page.
+    Future.delayed(Duration(minutes: 3), () {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (BuildContext context) => Introduction(),
+        ),
+      );
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return AnimatedSplashScreen(
       splash: SingleChildScrollView(
-        child: Column(children: [
-          CircleAvatar(
-            radius: 100,
-            backgroundImage: AssetImage('assets/pic4.jpg'),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircleAvatar(
+                radius:203,
+                backgroundImage: AssetImage('assets/Marham.png'),
+              ),
+            
+            ],
           ),
-          SizedBox(height: 10,),
-          const Text(
-            'You are in safe hands',
-            style: TextStyle(
-                color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
-          ),
-        ]),
+        ),
       ),
-      backgroundColor: Colors.blue,
+      backgroundColor: Color(0xFF37B6FF),
       nextScreen: Introduction(),
       splashIconSize: 300,
       duration: 2000,
