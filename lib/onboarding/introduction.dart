@@ -29,8 +29,8 @@ class _IntroductionState extends State<Introduction> {
               });
             },
             children: [
-              IntroPage1(),
               IntroPage2(),
+              IntroPage1(),
               IntroPage3(),
             ],
           ),

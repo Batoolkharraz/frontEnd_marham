@@ -11,20 +11,33 @@ class IntroPage1 extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-          Padding(padding:EdgeInsets.fromLTRB(0, 150, 0,0))
+          // Padding(padding:EdgeInsets.fromLTRB(0, 10, 0,0))
          
 
             
             
-              ,ClipRRect(
-  borderRadius: BorderRadius.circular(100.0),
+              ClipRRect(
+  borderRadius: BorderRadius.only(
+    bottomLeft: Radius.circular(100.0), // Adjust the radius as needed
+    bottomRight: Radius.circular(100.0), // Adjust the radius as needed
+  ),
   child: Container(
     // margin: EdgeInsets.fromLTRB(0, 80, 0, 100),
-   padding: EdgeInsets.fromLTRB(0, 100, 0, 100),
+   padding: EdgeInsets.fromLTRB(0, 200, 0,170),
    child:Column(
      children: [
        Image.asset('assets/page1.gif'),
-      
+        SizedBox(height: 40,),
+      Text(
+              'What is New in Our App?',
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Salsa',
+                color: Color.fromARGB(230, 21, 96, 225),
+
+              ),
+            ),   
       
             
      ],
@@ -34,17 +47,8 @@ class IntroPage1 extends StatelessWidget {
     ),
    
   ),
-          SizedBox(height: 40,),
-       Text(
-              'What is New in Our App?',
-              style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Salsa',
-                color: Colors.white
-
-              ),
-            ),      
+         
+          
             
           ],
         ),
