@@ -16,16 +16,16 @@ class category extends StatelessWidget {
         padding: EdgeInsets.fromLTRB(0, 20, 0, 5),
         width: 150.0,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15.0),
+          borderRadius: BorderRadius.circular(20.0),
               color:Colors.white,
-          boxShadow: [
-            BoxShadow( 
-              color: Colors.black26,// Shadow color
-              offset: Offset(0, 5), // Offset of the shadow
-              blurRadius: 6, // Blur radius
-              spreadRadius: 2, // Spread radius
-            ),
-          ],
+          // boxShadow: [
+          //   BoxShadow( 
+          //     color: Colors.blue,// Shadow color
+          //     offset: Offset(0, 5), // Offset of the shadow
+          //     blurRadius: 6, // Blur radius
+          //     spreadRadius: 2, // Spread radius
+          //   ),
+          // ],
         ),
         child: Column(
           children: [

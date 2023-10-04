@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_4/Home/category.dart';
 import 'package:flutter_application_4/Home/doctor.dart';
 import 'package:lottie/lottie.dart';
-
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 class homePage extends StatefulWidget {
   const homePage({super.key});
 
@@ -25,15 +26,53 @@ final List _doctors = ['dr1', 'dr2', 'dr1', 'dr2', 'dr1', 'dr2'];
 class _homePageState extends State<homePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xFFE0E0E0),
+    return Scaffold(backgroundColor: Color(0xFFE8EEFA) ,
+bottomNavigationBar: Container(
+        color: Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 7),
+          child: GNav(
+              gap: 8,
+              backgroundColor: Colors.white,
+              color: Colors.black,
+              activeColor: Colors.white,
+              tabBackgroundColor: Color(0xFF0561DD),
+              tabs: const [
+                GButton(
+                  icon: Icons.home,
+                  textStyle: TextStyle(
+                    fontSize: 20,
+                    fontFamily: 'Salsa',
+                    color: Colors.white
+                  ),
+                  iconSize: 35,
+                  text: "Home",
+                ),
+                GButton(
+                    icon: Icons.person,
+                    textStyle: TextStyle(
+                      fontSize: 20,
+                      fontFamily: 'Salsa',
+                      color: Colors.white
+                    ),
+                    iconSize: 35,
+                    text: "Personal Account"),
+                GButton(
+                    icon: Icons.event,
+                    textStyle: TextStyle(fontSize: 20,
+                    fontFamily: 'Salsa',
+                    color: Colors.white),
+                    iconSize: 35,
+                    text: ("Appointments")),
+              ]),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Container(
           child: Column(
             children: [
-              //app bar
               Padding(
-                padding: const EdgeInsets.fromLTRB(30.0, 60.0, 30.0, 20.0),
+                padding: const EdgeInsets.fromLTRB(30.0, 40.0, 30.0, 20.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -41,143 +80,102 @@ class _homePageState extends State<homePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Hello,',
-                          style: TextStyle(
-                            fontSize: 25.0,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          'Find Your',
+                          style: TextStyle(fontSize: 25.0, fontFamily: 'Salsa'),
                         ),
                         SizedBox(
-                          height: 6.0,
+                          height: 2.0,
                         ),
                         Text(
-                          'batool kh',
+                          ' Specialist',
                           style: TextStyle(
-                            fontSize: 25.0,
-                            fontWeight: FontWeight.bold,
-                          ),
+                              fontSize: 30.0,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Salsa'),
                         )
                       ],
                     ),
-                    //profile pic
                     Container(
-                      padding: EdgeInsets.all(12),
+                      padding: EdgeInsets.all(4),
                       margin: EdgeInsets.only(right: 5.0),
-                      decoration: BoxDecoration(
-                          color: Colors.deepPurple[100],
-                          borderRadius: BorderRadius.circular(50)),
-                      child: Icon(
-                        Icons.person,
-                        size: 40.0,
+                      child: Row(
+                        children: [
+                          FaIcon(FontAwesomeIcons.search, size: 30.0),
+                          SizedBox(width: 20.0),
+                          FaIcon(
+                            FontAwesomeIcons.commentDots,
+                            size: 30.0,
+                          ),
+                        ],
                       ),
                     ),
                   ],
                 ),
               ),
               SizedBox(height: 15.0),
-
-              //card how do u fell
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: Container(
-                  padding: EdgeInsets.all(25.0),
-                  decoration: BoxDecoration(
-                    color: Colors.pink[100],
-                    borderRadius: BorderRadius.circular(25.0),
-                  ),
-                  child: Row(
-                    children: [
-                      //pic
-                      Container(
-                        height: 200,
-                        width: 200,
-                        decoration: BoxDecoration(
-                          color: Colors.deepPurple[300],
-                        ),
-                      ),
-                      SizedBox(
-                        width: 25.0,
-                      ),
-                      //text
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'How do you feel?!',
-                              style: TextStyle(
-                                fontSize: 20.0,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 10.0,
-                            ),
-                            Text(
-                              'Fill out your medical card right now',
-                              style: TextStyle(
-                                fontSize: 18.0,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 15.0,
-                            ),
-                            Container(
-                              padding: EdgeInsets.all(12.0),
-                              decoration: BoxDecoration(
-                                color: Colors.deepPurple[300],
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  'Get Started',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 15.0,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 25.0,
-              ),
-              //search bar
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: Container(
-                  padding: EdgeInsets.all(10.0),
-                  height: 80,
-                  decoration: BoxDecoration(
-                    color: Colors.blue[100],
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child:
-                   Padding(
-                     padding: const EdgeInsets.only(top:5.0),
-                     child: TextField(
-                      decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.search),
-                        border: InputBorder.none,
-                        hintText: 'how we can help you?',
-                        hintStyle: TextStyle(fontSize: 20),
-                      ),
-                                     ),
-                   ),
-                ),
-              ),
-              SizedBox(
-                height: 25.0,
-              ),
-              //category
+///////////////////////////////////////////////////////////////////cards
+ 
+                
               Container(
-                height: 150.0,
+                decoration: BoxDecoration(
+                  color: Color(0xFF0561DD),
+                  borderRadius:
+                      BorderRadius.circular(29), // Set the border radius here
+                ),
+                  padding: EdgeInsets.all(15),height: 260,
+                 margin: EdgeInsets.only(left:10,right: 10),
+                  
+                  child:
+                    Row(
+                      children: [
+                        Container(color: Color(0xFF0561DD),
+                            width: 280,
+                            height: 250,
+                            padding: EdgeInsets.only(top:20),
+                            child: Column(
+                              children: [
+                              Text(
+                              "Looking For Your derired doctor specialist?",
+                              style: TextStyle(
+                                  fontSize: 25.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  fontFamily: 'Salsa'),
+                            ),
+                            SizedBox(height: 20,),
+                            Text("Connect with trusted doctors \nfor expert medical guidance and care.",
+                            style: TextStyle(
+                              fontSize: 20
+                              ,color: Colors.white
+                            ),
+                            )
+                              ],
+                            ),
+                            ),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Container(color: Color(0xFF0561DD), width:190, height: 250
+                        ,
+                        child: Image.asset("assets/copy.png",fit:BoxFit.cover),),
+                      ],
+                    ),
+                  
+                ),
+            
+
+              //category
+             Container(margin: EdgeInsets.all(13),width: 500,child:
+               Text(
+                "Categories",
+                textAlign: TextAlign.start,
+                style: TextStyle(fontSize: 25.0, fontFamily: 'Salsa'),
+              )
+              ,
+              
+             ),
+              Container(
+                height: 130.0,
                 child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: _categories.length,
@@ -196,18 +194,13 @@ class _homePageState extends State<homePage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('doctor list',
+                    Text('Avilable Doctor',
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30,
+                          color: Colors.black,
+                          fontSize: 25,
+                          fontFamily: 'Salsa'
                         )),
-                    Text(
-                      'see all',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          color: Colors.grey[500]),
-                    ),
+                    
                   ],
                 ),
               ),

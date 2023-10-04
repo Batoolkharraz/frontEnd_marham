@@ -19,7 +19,7 @@ class doctor extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15.0),
-          color: Colors.deepPurple[100],
+          color: Colors.white,
         ),
         child: Column(
           children: [
@@ -62,7 +62,7 @@ class doctor extends StatelessWidget {
               children: [
                 Icon(
                   Icons.star,
-                  color: Colors.yellow[600],
+                  color: Color.fromARGB(255, 227, 212, 142),
                 ),
                 Text(
                   doctorRate,
@@ -76,7 +76,7 @@ class doctor extends StatelessWidget {
                 ),
                 Icon(
                   Icons.favorite_border,
-                  color: Color.fromARGB(255, 250, 79, 57),
+                  color: Color.fromARGB(255, 249, 128, 112),
                 ),
                 
               ],
