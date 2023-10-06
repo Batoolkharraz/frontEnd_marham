@@ -1,9 +1,15 @@
+// ignore_for_file: non_constant_identifier_names
+
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_4/Home/category.dart';
 import 'package:flutter_application_4/Home/doctor.dart';
 import 'package:lottie/lottie.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:http/http.dart' as http;
+
 class homePage extends StatefulWidget {
   const homePage({super.key});
 
@@ -11,23 +17,63 @@ class homePage extends StatefulWidget {
   State<homePage> createState() => _homePageState();
 }
 
-final List _categories = [
-  'chest ',
-  'cat2',
-  'cat1',
-  'cat2',
-  'cat1',
-  'cat2',
-  'cat1',
-  'cat2'
-];
-final List _doctors = ['dr1', 'dr2', 'dr1', 'dr2', 'dr1', 'dr2'];
-
 class _homePageState extends State<homePage> {
+  List categories = [];
+  List doctors = [];
+  String cat = "";
+
+  Future getCategories() async {
+    var url = "https://marham-backend.onrender.com/category/";
+    var response = await http.get(Uri.parse(url));
+    var responceBody = response.body.toString();
+    responceBody = responceBody.trim();
+    responceBody = responceBody.substring(14, responceBody.length - 1);
+    var cat = jsonDecode(responceBody);
+
+    setState(() {
+      categories.addAll(cat);
+    });
+  }
+
+  Future<String> getCategory(String catId) async {
+    var url = "https://marham-backend.onrender.com/category/${catId}";
+    var response = await http.get(Uri.parse(url));
+    var responceBody = response.body.toString();
+    responceBody = responceBody.trim();
+    responceBody = responceBody.substring(12, responceBody.length - 1);
+    var cat = jsonDecode(responceBody);
+
+    return cat['name'];
+  }
+
+  Future getDoctor() async {
+    var url = "https://marham-backend.onrender.com/doctor/";
+    var response = await http.get(Uri.parse(url));
+    var responceBody = response.body.toString();
+    responceBody = responceBody.trim();
+    responceBody = responceBody.substring(11, responceBody.length - 1);
+    var doc = jsonDecode(responceBody);
+    
+    setState(() {
+      //print(getCategory(doc[0]['categoryId']));
+      doctors.addAll(doc);
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    getCategories();
+    //getCategory();
+    getDoctor();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(backgroundColor: Color(0xFFE8EEFA) ,
-bottomNavigationBar: Container(
+    return Scaffold(
+      backgroundColor: Color(0xFFE8EEFA),
+      bottomNavigationBar: Container(
         color: Colors.white,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 7),
@@ -41,27 +87,20 @@ bottomNavigationBar: Container(
                 GButton(
                   icon: Icons.home,
                   textStyle: TextStyle(
-                    fontSize: 20,
-                    fontFamily: 'Salsa',
-                    color: Colors.white
-                  ),
+                      fontSize: 20, fontFamily: 'Salsa', color: Colors.white),
                   iconSize: 35,
                   text: "Home",
                 ),
                 GButton(
                     icon: Icons.person,
                     textStyle: TextStyle(
-                      fontSize: 20,
-                      fontFamily: 'Salsa',
-                      color: Colors.white
-                    ),
+                        fontSize: 20, fontFamily: 'Salsa', color: Colors.white),
                     iconSize: 35,
                     text: "Personal Account"),
                 GButton(
                     icon: Icons.event,
-                    textStyle: TextStyle(fontSize: 20,
-                    fontFamily: 'Salsa',
-                    color: Colors.white),
+                    textStyle: TextStyle(
+                        fontSize: 20, fontFamily: 'Salsa', color: Colors.white),
                     iconSize: 35,
                     text: ("Appointments")),
               ]),
@@ -114,75 +153,75 @@ bottomNavigationBar: Container(
               ),
               SizedBox(height: 15.0),
 ///////////////////////////////////////////////////////////////////cards
- 
-                
+
               Container(
                 decoration: BoxDecoration(
                   color: Color(0xFF0561DD),
                   borderRadius:
                       BorderRadius.circular(29), // Set the border radius here
                 ),
-                  padding: EdgeInsets.all(15),height: 260,
-                 margin: EdgeInsets.only(left:10,right: 10),
-                  
-                  child:
-                    Row(
-                      children: [
-                        Container(color: Color(0xFF0561DD),
-                            width: 280,
-                            height: 250,
-                            padding: EdgeInsets.only(top:20),
-                            child: Column(
-                              children: [
-                              Text(
-                              "Looking For Your derired doctor specialist?",
-                              style: TextStyle(
-                                  fontSize: 25.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                  fontFamily: 'Salsa'),
-                            ),
-                            SizedBox(height: 20,),
-                            Text("Connect with trusted doctors \nfor expert medical guidance and care.",
+                padding: EdgeInsets.all(15),
+                height: 260,
+                margin: EdgeInsets.only(left: 10, right: 10),
+                child: Row(
+                  children: [
+                    Container(
+                      color: Color(0xFF0561DD),
+                      width: 280,
+                      height: 250,
+                      padding: EdgeInsets.only(top: 20),
+                      child: Column(
+                        children: [
+                          Text(
+                            "Looking For Your derired doctor specialist?",
                             style: TextStyle(
-                              fontSize: 20
-                              ,color: Colors.white
-                            ),
-                            )
-                              ],
-                            ),
-                            ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Container(color: Color(0xFF0561DD), width:190, height: 250
-                        ,
-                        child: Image.asset("assets/copy.png",fit:BoxFit.cover),),
-                      ],
+                                fontSize: 25.0,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                                fontFamily: 'Salsa'),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Text(
+                            "Connect with trusted doctors \nfor expert medical guidance and care.",
+                            style: TextStyle(fontSize: 20, color: Colors.white),
+                          )
+                        ],
+                      ),
                     ),
-                  
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Container(
+                      color: Color(0xFF0561DD),
+                      width: 190,
+                      height: 250,
+                      child: Image.asset("assets/copy.png", fit: BoxFit.cover),
+                    ),
+                  ],
                 ),
-            
+              ),
 
               //category
-             Container(margin: EdgeInsets.all(13),width: 500,child:
-               Text(
-                "Categories",
-                textAlign: TextAlign.start,
-                style: TextStyle(fontSize: 25.0, fontFamily: 'Salsa'),
-              )
-              ,
-              
-             ),
+              Container(
+                margin: EdgeInsets.all(13),
+                width: 500,
+                child: Text(
+                  "Categories",
+                  textAlign: TextAlign.start,
+                  style: TextStyle(fontSize: 25.0, fontFamily: 'Salsa'),
+                ),
+              ),
               Container(
                 height: 130.0,
                 child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: _categories.length,
+                    itemCount: categories.length,
                     itemBuilder: (context, index) {
                       return category(
-                          icon: 'assets/tooth.png',
-                          categoryName: _categories[index]);
+                          icon: '${categories[index]['image']['secure_url']}',
+                          categoryName: '${categories[index]['name']}');
                     }),
               ),
               SizedBox(
@@ -196,11 +235,9 @@ bottomNavigationBar: Container(
                   children: [
                     Text('Avilable Doctor',
                         style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 25,
-                          fontFamily: 'Salsa'
-                        )),
-                    
+                            color: Colors.black,
+                            fontSize: 25,
+                            fontFamily: 'Salsa')),
                   ],
                 ),
               ),
@@ -211,13 +248,26 @@ bottomNavigationBar: Container(
                 height: 335.0,
                 child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: _categories.length,
+                    itemCount: doctors.length,
                     itemBuilder: (context, index) {
-                      return doctor(
-                          doctorPic: 'assets/doctor2.jpg',
-                          doctorRate: '5.0',
-                          doctorName: 'doctorName',
-                          doctorCat: 'doctorCat');
+                      return FutureBuilder(
+                      future: getCategory('${doctors[index]['categoryId']}'),
+                      builder: (context, categorySnapshot) {
+                        if (categorySnapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return CircularProgressIndicator();
+                        } else if (categorySnapshot.hasError) {
+                          return Text('Error: ${categorySnapshot.error}');
+                        } else {
+                          return doctor(
+                            doctorPic: '${doctors[index]['image']['secure_url']}',
+                            doctorRate: '${doctors[index]['rate']}',
+                            doctorName: '${doctors[index]['name']}',
+                            doctorCat: categorySnapshot.data.toString(),
+                          );
+                        }
+                      },
+                    );
                     }),
               ),
             ],

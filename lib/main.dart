@@ -13,7 +13,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,//عند الدراور
       // home:Login(),
-      home:splashScreen(),
+      //home:splashScreen(),
+      home:homePage(),
     );
 }
 }

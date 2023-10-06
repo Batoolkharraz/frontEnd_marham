@@ -28,7 +28,7 @@ class doctor extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(25),
-                child: Image.asset(
+                child: Image.network(
                   doctorPic,
                   height: 200.0,
                   width: 200.0,

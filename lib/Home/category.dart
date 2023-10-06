@@ -29,7 +29,7 @@ class category extends StatelessWidget {
         ),
         child: Column(
           children: [
-            Image.asset(
+            Image.network(
               icon,
               height: 50.0,
             ),
