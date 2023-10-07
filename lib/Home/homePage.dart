@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_4/Home/category.dart';
 import 'package:flutter_application_4/Home/doctor.dart';
+import 'package:flutter_application_4/doctors/doctors.dart';
 import 'package:lottie/lottie.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -20,7 +21,6 @@ class homePage extends StatefulWidget {
 class _homePageState extends State<homePage> {
   List categories = [];
   List doctors = [];
-  String cat = "";
 
   Future getCategories() async {
     var url = "https://marham-backend.onrender.com/category/";
@@ -59,6 +59,14 @@ class _homePageState extends State<homePage> {
       doctors.addAll(doc);
     });
   }
+
+void navigateToNextPageWithCategory(String categoryId) {
+  Navigator.of(context).push(
+    MaterialPageRoute(
+      builder: (context) => DoctorsPage(categoryId: categoryId),
+    ),
+  );
+}
 
   @override
   void initState() {
@@ -221,7 +229,9 @@ class _homePageState extends State<homePage> {
                     itemBuilder: (context, index) {
                       return category(
                           icon: '${categories[index]['image']['secure_url']}',
-                          categoryName: '${categories[index]['name']}');
+                          categoryName: '${categories[index]['name']}',
+                          onTap: () => navigateToNextPageWithCategory('${categories[index]['_id']}'),);
+                          
                     }),
               ),
               SizedBox(
@@ -253,10 +263,7 @@ class _homePageState extends State<homePage> {
                       return FutureBuilder(
                       future: getCategory('${doctors[index]['categoryId']}'),
                       builder: (context, categorySnapshot) {
-                        if (categorySnapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return CircularProgressIndicator();
-                        } else if (categorySnapshot.hasError) {
+                        if (categorySnapshot.hasError) {
                           return Text('Error: ${categorySnapshot.error}');
                         } else {
                           return doctor(
