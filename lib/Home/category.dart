@@ -23,10 +23,10 @@ class category extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20.0),
             color: Colors.white,
-            border: Border.all(
+            /*border: Border.all(
               color: Color(0xFF0561DD),
               width: 3.0,
-            ),
+            ),*/
           ),
           child: Column(
             children: [

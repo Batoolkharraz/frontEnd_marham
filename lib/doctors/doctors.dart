@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_4/Home/category.dart';
 import 'package:flutter_application_4/Home/doctor.dart';
+import 'package:flutter_application_4/Home/homePage.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:http/http.dart' as http;
 
 class DoctorsPage extends StatefulWidget {
@@ -83,6 +85,39 @@ class _DoctorsPageState extends State<DoctorsPage> {
       padding: const EdgeInsets.only(top: 40.0),
       child: Scaffold(
         backgroundColor: Color(0xFFE8EEFA),
+        bottomNavigationBar: Container(
+        color: Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 7),
+          child: GNav(
+              gap: 8,
+              backgroundColor: Colors.white,
+              color: Colors.black,
+              activeColor: Colors.white,
+              tabBackgroundColor: Color(0xFF0561DD),
+              tabs: const [
+                GButton(
+                  icon: Icons.home,
+                  textStyle: TextStyle(
+                      fontSize: 20, fontFamily: 'Salsa', color: Colors.white),
+                  iconSize: 35,
+                  text: "Home",
+                ),
+                GButton(
+                    icon: Icons.person,
+                    textStyle: TextStyle(
+                        fontSize: 20, fontFamily: 'Salsa', color: Colors.white),
+                    iconSize: 35,
+                    text: "Personal Account"),
+                GButton(
+                    icon: Icons.event,
+                    textStyle: TextStyle(
+                        fontSize: 20, fontFamily: 'Salsa', color: Colors.white),
+                    iconSize: 35,
+                    text: ("Appointments")),
+              ]),
+        ),
+      ),
         appBar: AppBar(
           backgroundColor: Color(0xFF0561DD),
           elevation: 0,
@@ -96,7 +131,7 @@ class _DoctorsPageState extends State<DoctorsPage> {
             ),
           ),
           
-         /* actions: [
+          actions: [
             Padding(
               padding: const EdgeInsets.only(right: 24.0),
               child: IconButton(
@@ -110,7 +145,7 @@ class _DoctorsPageState extends State<DoctorsPage> {
                 },
               ),
             )
-          ],*/
+          ],
         ),
        
         body: Padding(

@@ -15,8 +15,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,//عند الدراور
       // home:Login(),
       //home:splashScreen(),
-      //home:homePage(),
-      home:DoctorsPage(categoryId: '651c1c4cc42efa5f336b9d61'),
+      home:homePage(),
+      //home:DoctorsPage(categoryId: '651c1c4cc42efa5f336b9d61'),
     );
 }
 }
