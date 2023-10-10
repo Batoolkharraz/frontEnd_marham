@@ -1,7 +1,10 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_4/Home/category.dart';
-import 'package:flutter_application_4/Home/doctor.dart';
+import 'package:flutter_application_4/Home/home.dart';
+import 'package:flutter_application_4/appointment/appointment.dart';
+import 'package:flutter_application_4/profile/profile.dart';
+import 'package:flutter_application_4/unit/category.dart';
+import 'package:flutter_application_4/unit/doctor.dart';
 import 'package:flutter_application_4/Home/homePage.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:http/http.dart' as http;
@@ -84,101 +87,66 @@ class _DoctorsPageState extends State<DoctorsPage> {
     return Padding(
       padding: const EdgeInsets.only(top: 40.0),
       child: Scaffold(
-        backgroundColor: Color(0xFFE8EEFA),
-        bottomNavigationBar: Container(
-        color: Colors.white,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 7),
-          child: GNav(
-              gap: 8,
-              backgroundColor: Colors.white,
-              color: Colors.black,
-              activeColor: Colors.white,
-              tabBackgroundColor: Color(0xFF0561DD),
-              tabs: const [
-                GButton(
-                  icon: Icons.home,
-                  textStyle: TextStyle(
-                      fontSize: 20, fontFamily: 'Salsa', color: Colors.white),
-                  iconSize: 35,
-                  text: "Home",
-                ),
-                GButton(
-                    icon: Icons.person,
-                    textStyle: TextStyle(
-                        fontSize: 20, fontFamily: 'Salsa', color: Colors.white),
-                    iconSize: 35,
-                    text: "Personal Account"),
-                GButton(
-                    icon: Icons.event,
-                    textStyle: TextStyle(
-                        fontSize: 20, fontFamily: 'Salsa', color: Colors.white),
-                    iconSize: 35,
-                    text: ("Appointments")),
-              ]),
-        ),
-      ),
-        appBar: AppBar(
-          backgroundColor: Color(0xFF0561DD),
-          elevation: 0,
-          centerTitle: true,
-          title: Text(
-            'doctor list',
-            style: TextStyle(
-              fontSize: 30.0,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'Salsa',
-            ),
-          ),
-          
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 24.0),
-              child: IconButton(
-                icon: Icon(
-                  Icons.manage_search_outlined,
-                  color: Colors.white,
-                  size: 40,
-                ),
-                onPressed: () {
-                  // account button tapped
-                },
+          backgroundColor: Color(0xFFE8EEFA),
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            backgroundColor: Color(0xFF0561DD),
+            elevation: 0,
+            centerTitle: true,
+            title: Text(
+              'doctor list',
+              style: TextStyle(
+                fontSize: 30.0,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Salsa',
               ),
-            )
-          ],
-        ),
-       
-        body: Padding(
-          padding: const EdgeInsets.fromLTRB(20.0, 35.0, 30.0, 10.0),
-          child: Column(
-            children: [
-
-              // other category
-              Container(
-                height: 130.0,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: categories.length,
-                  itemBuilder: (context, index) {
-                    return category(
-                      icon: '${categories[index]['image']['secure_url']}',
-                      categoryName: '${categories[index]['name']}',
-                      onTap: () => navigateToNextPageWithCategory(
-                        '${categories[index]['_id']}',
-                      ),
-                    );
+            ),
+            actions: [
+              Padding(
+                padding: const EdgeInsets.only(right: 24.0),
+                child: IconButton(
+                  icon: Icon(
+                    Icons.manage_search_outlined,
+                    color: Colors.white,
+                    size: 40,
+                  ),
+                  onPressed: () {
+                    // account button tapped
                   },
                 ),
-              ),
-              
-              SizedBox(
-                height: 30.0,
-              ),
-
-              //see all
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25),
-                child: Row(
+              )
+            ],
+          ),
+          body: Padding(
+            padding: const EdgeInsets.only(right: 20),
+            child: Column(
+              children: [
+                // other category
+                Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: Container(
+                    height: 130.0,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: categories.length,
+                      itemBuilder: (context, index) {
+                        return category(
+                          icon: '${categories[index]['image']['secure_url']}',
+                          categoryName: '${categories[index]['name']}',
+                          onTap: () => navigateToNextPageWithCategory(
+                            '${categories[index]['_id']}',
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 30.0,
+                ),
+          
+                //see all
+                Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     GestureDetector(
@@ -193,49 +161,46 @@ class _DoctorsPageState extends State<DoctorsPage> {
                     ),
                   ],
                 ),
-              ),
-              
-              SizedBox(
-                height: 15.0,
-              ),
-              
-              // doctors
-              Expanded(
-                child: GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 15.0,
-                    childAspectRatio: 0.7,
-                  ),
-                  itemCount: doctors.length,
-                  itemBuilder: (context, index) {
-                    return FutureBuilder(
-                      future: getCategory('${doctors[index]['categoryId']}'),
-                      builder: (context, categorySnapshot) {
-                        if (categorySnapshot.hasError) {
-                          return Text('Error: ${categorySnapshot.error}');
-                        } else {
-                          return Container(
-                            height: 300, // Adjust the height as needed
-                            child: doctor(
-                              doctorPic:
-                                  '${doctors[index]['image']['secure_url']}',
-                              doctorRate: '${doctors[index]['rate']}',
-                              doctorName: '${doctors[index]['name']}',
-                              doctorCat: categorySnapshot.data.toString(),
-                            ),
-                          );
-                        }
-                      },
-                    );
-                  },
+          
+                SizedBox(
+                  height: 15.0,
                 ),
-              ),
-            
-            ],
-          ),
-        ),
-      ),
+          
+                // doctors
+                Expanded(
+                  child: GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 15.0,
+                      childAspectRatio: 0.77,
+                    ),
+                    itemCount: doctors.length,
+                    itemBuilder: (context, index) {
+                      return FutureBuilder(
+                        future: getCategory('${doctors[index]['categoryId']}'),
+                        builder: (context, categorySnapshot) {
+                          if (categorySnapshot.hasError) {
+                            return Text('Error: ${categorySnapshot.error}');
+                          } else {
+                            return Container(
+                              //height: 300, // Adjust the height as needed
+                              child: doctor(
+                                doctorPic:
+                                    '${doctors[index]['image']['secure_url']}',
+                                doctorRate: '${doctors[index]['rate']}',
+                                doctorName: '${doctors[index]['name']}',
+                                doctorCat: categorySnapshot.data.toString(),
+                              ),
+                            );
+                          }
+                        },
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          )),
     );
   }
 }

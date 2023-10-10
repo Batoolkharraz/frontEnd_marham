@@ -64,11 +64,13 @@ class doctor extends StatelessWidget {
               ),
               //rate
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(
                     Icons.star,
                     color: Color.fromARGB(255, 227, 212, 142),
                   ),
+                  SizedBox(height: 15,),
                   Text(
                     doctorRate,
                     style: TextStyle(
@@ -76,13 +78,6 @@ class doctor extends StatelessWidget {
                       fontSize: 18,
                       fontFamily: 'Salsa',
                     ),
-                  ),
-                  SizedBox(
-                    width: 90.0,
-                  ),
-                  Icon(
-                    Icons.favorite_border,
-                    color: Color.fromARGB(255, 249, 128, 112),
                   ),
                 ],
               ),
