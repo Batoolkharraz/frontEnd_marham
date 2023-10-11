@@ -3,6 +3,7 @@ import 'package:flutter_application_4/Auth/Login/login.dart';
 import 'package:flutter_application_4/Home/homePage.dart';
 import 'package:flutter_application_4/doctors/doctors.dart';
 import 'package:flutter_application_4/onboarding/introduction.dart';
+import 'package:flutter_application_4/profile/profile.dart';
 import 'package:flutter_application_4/splashScreen.dart';
 void main() {
   runApp( MyApp());
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
       // home:Login(),
       //home:splashScreen(),
       home:homePage(),
-      //home:DoctorsPage(categoryId: '651c1c4cc42efa5f336b9d61'),
+      //home:profile(),
     );
 }
 }

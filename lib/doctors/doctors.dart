@@ -87,120 +87,138 @@ class _DoctorsPageState extends State<DoctorsPage> {
     return Padding(
       padding: const EdgeInsets.only(top: 40.0),
       child: Scaffold(
-          backgroundColor: Color(0xFFE8EEFA),
-          appBar: AppBar(
-            automaticallyImplyLeading: false,
-            backgroundColor: Color(0xFF0561DD),
-            elevation: 0,
-            centerTitle: true,
-            title: Text(
-              'doctor list',
-              style: TextStyle(
-                fontSize: 30.0,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Salsa',
-              ),
+        backgroundColor: Color(0xFFE8EEFA),
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          backgroundColor: Color(0xFF0561DD),
+          elevation: 0,
+          centerTitle: true,
+          title: Text(
+            'doctor list',
+            style: TextStyle(
+              fontSize: 30.0,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Salsa',
             ),
-            actions: [
-              Padding(
-                padding: const EdgeInsets.only(right: 24.0),
-                child: IconButton(
-                  icon: Icon(
-                    Icons.manage_search_outlined,
-                    color: Colors.white,
-                    size: 40,
-                  ),
-                  onPressed: () {
-                    // account button tapped
-                  },
-                ),
-              )
-            ],
           ),
-          body: Padding(
-            padding: const EdgeInsets.only(right: 20),
-            child: Column(
-              children: [
-                // other category
-                Padding(
-                  padding: const EdgeInsets.only(top: 20),
-                  child: Container(
-                    height: 130.0,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: categories.length,
-                      itemBuilder: (context, index) {
-                        return category(
-                          icon: '${categories[index]['image']['secure_url']}',
-                          categoryName: '${categories[index]['name']}',
-                          onTap: () => navigateToNextPageWithCategory(
-                            '${categories[index]['_id']}',
-                          ),
-                        );
-                      },
-                    ),
+          leading: Padding(
+            padding: const EdgeInsets.only(left: 24.0),
+            child: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                color: Colors.white,
+                size: 40,
+              ),
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => homePage(),
                   ),
+                );
+              },
+            ),
+          ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 24.0),
+              child: IconButton(
+                icon: Icon(
+                  Icons.search,
+                  color: Colors.white,
+                  size: 40,
                 ),
-                SizedBox(
-                  height: 30.0,
-                ),
-          
-                //see all
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        navigateToNextPageWithCategory('');
-                      },
-                      child: Text('see all',
-                          style: TextStyle(
-                              color: Colors.black54,
-                              fontSize: 25,
-                              fontFamily: 'Salsa')),
-                    ),
-                  ],
-                ),
-          
-                SizedBox(
-                  height: 15.0,
-                ),
-          
-                // doctors
-                Expanded(
-                  child: GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 15.0,
-                      childAspectRatio: 0.77,
-                    ),
-                    itemCount: doctors.length,
+                onPressed: () {
+                  // account button tapped
+                },
+              ),
+            )
+          ],
+        ),
+        body: Padding(
+          padding: const EdgeInsets.only(right: 20),
+          child: Column(
+            children: [
+              // other category
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: Container(
+                  height: 130.0,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: categories.length,
                     itemBuilder: (context, index) {
-                      return FutureBuilder(
-                        future: getCategory('${doctors[index]['categoryId']}'),
-                        builder: (context, categorySnapshot) {
-                          if (categorySnapshot.hasError) {
-                            return Text('Error: ${categorySnapshot.error}');
-                          } else {
-                            return Container(
-                              //height: 300, // Adjust the height as needed
-                              child: doctor(
-                                doctorPic:
-                                    '${doctors[index]['image']['secure_url']}',
-                                doctorRate: '${doctors[index]['rate']}',
-                                doctorName: '${doctors[index]['name']}',
-                                doctorCat: categorySnapshot.data.toString(),
-                              ),
-                            );
-                          }
-                        },
+                      return category(
+                        icon: '${categories[index]['image']['secure_url']}',
+                        categoryName: '${categories[index]['name']}',
+                        onTap: () => navigateToNextPageWithCategory(
+                          '${categories[index]['_id']}',
+                        ),
                       );
                     },
                   ),
                 ),
-              ],
-            ),
-          )),
+              ),
+              SizedBox(
+                height: 30.0,
+              ),
+
+              //see all
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      navigateToNextPageWithCategory('');
+                    },
+                    child: Text('see all',
+                        style: TextStyle(
+                            color: Colors.black54,
+                            fontSize: 25,
+                            fontFamily: 'Salsa')),
+                  ),
+                ],
+              ),
+
+              SizedBox(
+                height: 15.0,
+              ),
+
+              // doctors
+              Expanded(
+                child: GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 15.0,
+                    childAspectRatio: 0.77,
+                  ),
+                  itemCount: doctors.length,
+                  itemBuilder: (context, index) {
+                    return FutureBuilder(
+                      future: getCategory('${doctors[index]['categoryId']}'),
+                      builder: (context, categorySnapshot) {
+                        if (categorySnapshot.hasError) {
+                          return Text('Error: ${categorySnapshot.error}');
+                        } else {
+                          return Container(
+                            //height: 300, // Adjust the height as needed
+                            child: doctor(
+                              doctorPic:
+                                  '${doctors[index]['image']['secure_url']}',
+                              doctorRate: '${doctors[index]['rate']}',
+                              doctorName: '${doctors[index]['name']}',
+                              doctorCat: categorySnapshot.data.toString(),
+                            ),
+                          );
+                        }
+                      },
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
